@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
   res.send("Express server is running on 3000 port");
 });
 
-mongoose.connect("mongodb+srv://anishajain:12345@cluster0.slwensz.mongodb.net/week02Day06?appName=Cluster0")  
+mongoose.connect("mongodb+srv://anishajain:12345@cluster0.slwensz.mongodb.net/week02day06Assign?appName=Cluster0")  
 .then(()=> console.log("MongoDB connected successfully"))
 .catch((error)=> console.log("MongoDB connection failed :- " , error))
 
@@ -71,6 +71,22 @@ app.put("/users/:id", async (req,res)=>{
 
 });
 
+//all delete
+app.delete("/users", async (req, res) => {
+    try {
+        await User.deleteMany({});
+
+        res.status(200).json({
+            message: "All users deleted successfully"
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error deleting users",
+            error: error.message
+        });
+    }
+});
+
 //by id deletion
 app.delete("/users/:id", async (req,res)=>{
     const user = await User.findByIdAndDelete(
@@ -81,6 +97,26 @@ app.delete("/users/:id", async (req,res)=>{
         message: "User deleted successfully"
     })
 })
+
+app.patch("/users/:id", async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }   // returns updated document
+        );
+
+        res.status(200).json({
+            message: "User partially updated",
+            data: updatedUser
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error updating user",
+            error: error.message
+        });
+    }
+});
 
 app.listen(3000, () => {
   console.log("Server started on port 3000");
