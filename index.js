@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
   res.send("Express server is running on 3000 port");
 });
 
-mongoose.connect("mongodb+srv://anishajain:12345@cluster0.slwensz.mongodb.net/week02day06Assign?appName=Cluster0")  
+mongoose.connect("mongodb+srv://anishajain:12345@cluster0.slwensz.mongodb.net/week02Day06?appName=Cluster0")  
 .then(()=> console.log("MongoDB connected successfully"))
 .catch((error)=> console.log("MongoDB connection failed :- " , error))
 
