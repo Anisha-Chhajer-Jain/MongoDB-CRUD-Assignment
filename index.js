@@ -88,14 +88,14 @@ app.delete("/users", async (req, res) => {
 });
 
 //by id deletion
-app.delete("/users/:id", async (req,res)=>{
-    const user = await User.findByIdAndDelete(
-        req.params.id
-    )
-
-    res.status(200).json({
-        message: "User deleted successfully"
-    })
+app.delete("/userdelete/:id", async (req,res)=>{
+    try{
+    const deleteUser = await User.findByIdAndDelete(req.params.id);
+    res.json(deleteUser)
+    }
+    catch(err){
+        res.status(500).send(err)
+    }
 })
 
 app.patch("/users/:id", async (req, res) => {
@@ -119,5 +119,5 @@ app.patch("/users/:id", async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Server started on port 3000");
+  console.log("Server started on 3000 port");
 });
