@@ -129,7 +129,7 @@ app.delete("/students/:id", async(req,res)=>{
     try{
         const student = await Student.findByIdAndDelete(req.params.id)
         if(!student){
-            return res.status(404).json({message:"Student not found"})
+            return res.status(404).json({message:"Student is not found"})
         }
         res.status(200).json(student)
     }
